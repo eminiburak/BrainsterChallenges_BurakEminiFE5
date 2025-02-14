@@ -1,0 +1,117 @@
+@use "../abstracts/mixins" as mixins;
+@use "../abstracts/variables" as var;
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 100vh;
+    background-color: var.$background-color-base;
+    color: var.$text-color-base;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var.$gutter-base;
+    z-index: 10;
+
+    .logo {
+        margin-bottom: var.$gutter-base;
+    }
+
+    .menu {
+        list-style: none;
+        padding: 0;
+        width: 100%;
+
+        li {
+            margin-bottom: var.$gutter-base;
+
+            a {
+                color: var.$text-color-base;
+                text-decoration: none;
+                display: block;
+                padding: var.$gutter-base;
+                &:hover {
+                    background-color: var.$background-color-base;
+                }
+            }
+        }
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        margin-top: var.$gutter-base;
+
+        span {
+            background-color: var.$text-color-primary;
+            height: 3px;
+            width: 100%;
+            border-radius: 2px;
+        }
+    }
+
+    @include mixins.tablet-styles {
+        width: 100%;
+        height: auto;
+
+        .menu {
+            display: none;
+        }
+
+        .menu-toggle:checked ~ .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+    }
+}
+
+.gallery {
+    margin-left: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var.$gutter-base;
+
+    .gallery-item {
+        flex: 1 1 calc(33.333% - var.$gutter-base);
+        position: relative;
+
+        img {
+            width: 100%;
+            border-radius: calc(var.$gutter-base / 4);
+            transition: opacity 0.3s ease;
+        }
+        &:hover img {
+            opacity: 0.1;
+        }
+    }
+
+    @include mixins.tablet-styles {
+        margin-left: 0;
+
+        .gallery-item {
+            flex: 1 1 calc(50% - var.$gutter-base);
+        }
+    }
+
+    @include mixins.mobile-l-styles {
+        .gallery-item {
+            flex: 1 1 100%;
+        }
+    }
+}
